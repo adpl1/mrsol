@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الدخول</title>
+  <!-- رابط ملف الـ CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="centered">
+
+  <div class="card">
+    <h2>تسجيل الدخول</h2>
+    <input id="email"    type="email"    placeholder="البريد الإلكتروني"/>
+    <input id="password" type="password" placeholder="كلمة المرور"/>
+    <button id="loginBtn" class="primary">دخول</button>
+    <p><a href="signup.html">مستخدم جديد؟ إنشاء حساب</a></p>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+  <!-- Firebase Config -->
+  <script src="firebase-config.js"></script>
+
+  <!-- Login Script -->
+  <script>
+    const auth = firebase.auth();
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const pass  = document.getElementById('password').value;
+      if (!email || !pass) return alert('يرجى تعبئة البريد وكلمة المرور');
+      auth.signInWithEmailAndPassword(email, pass)
+        .then(() => window.location.href = 'home.html')
+        .catch(e => alert(e.message));
+    }
+    document.getElementById('loginBtn').addEventListener('click', login);
+  </script>
+</body>
+</html>
